@@ -1,0 +1,81 @@
+---
+title: 'Title'
+format:
+  # https://quarto.org/docs/output-formats/pdf-basics.html
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+  # https://quarto.org/docs/presentations/revealjs/
+  # revealjs:
+  #   theme: serif
+  #   transition: slide
+  #   background-transition: fade
+# https://quarto.org/docs/authoring/footnotes-and-citations.html
+bibliography: ./assets/bib/references.bib  # https://www.bibtex.com/g/bibtex-format/
+csl: ./assets/bib/apa.csl  # https://github.com/citation-style-language/styles
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(kableExtra)  # https://bookdown.org/yihui/rmarkdown-cookbook/kableextra.html
+
+knitr::opts_chunk$set(echo = F, message = F)
+```
+
+# Introduction
+
+## Text
+
+You can use markdown to format your text, such as making things **bold** or _italic_ or `code`.
+
+> Include block quotes
+
+More info [here](https://quarto.org/docs/authoring/markdown-basics.html).
+
+## Citations
+
+@RN4021 said blah...
+
+Example of a parenthetical citation [@RN485]. 
+
+# Results
+
+## Tables
+
+```{r}
+head(iris) %>% 
+  kable()
+```
+
+---
+
+```{r}
+iris %>% 
+  group_by(Species) %>% 
+  summarise(
+    `Avg. Sepal Width` = mean(Sepal.Width),
+    `Avg. Sepal Length` = mean(Sepal.Length)
+  ) %>% 
+  kable(booktabs = T)
+```
+
+## Figures
+
+```{r}
+iris %>% 
+  ggplot(aes(x = Sepal.Width, y = Sepal.Length)) +
+  geom_point()
+
+# ggsave(filename = './assets/figures/iris.png')
+```
+
+## Images
+
+![](./assets/figures/iris.png)
+
+---
+
+![](https://quarto.org/quarto.png)
+
+# References
